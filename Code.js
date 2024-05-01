@@ -43,32 +43,26 @@ function onOpen() {
  * @param {string} subjectLine (optional) for the email draft message
  * @param {Sheet} sheet to read data from
 */
-function sendEmails(subjectLine, sheet=SpreadsheetApp.getActiveSheet()) {
-  // option to skip browser prompt if you want to use this code in other projects
-  if (!subjectLine){
-    subjectLine = Browser.inputBox("Send Campus Emails", 
-                                      "Type or copy/paste the subject line of the Gmail " +
-                                      "draft message you would like to mail merge with:",
-                                      Browser.Buttons.OK_CANCEL);
+function sendEmails(subjectLine = "AEP Placement Transition Plan", sheet=SpreadsheetApp.getActiveSheet()) {
+
+  // Skipped the browser prompt below and just set the subject line
+  // if (!subjectLine){
+  //   subjectLine = Browser.inputBox("Send Campus Emails", 
+  //                                     "Type or copy/paste the subject line of the Gmail " +
+  //                                     "draft message you would like to mail merge with:",
+  //                                     Browser.Buttons.OK_CANCEL);
                                       
-    if (subjectLine === "cancel" || subjectLine == ""){ 
-    // If no subject line, finishes up
-    return;
-    }
-  }
-  
+  //   if (subjectLine === "cancel" || subjectLine == ""){ 
+  //   // If no subject line, finishes up
+  //   return;
+  //   }
+
   // Gets the draft Gmail message to use as a template
   const emailTemplate = getGmailTemplateFromDrafts_(subjectLine);
   
   // Gets the data from the passed sheet
   const dataRange = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Return to HC 23-24').getDataRange();
-  //const dataRange = sheet.getDataRange();
-  // Fetches displayed values for each row in the Range
-  // https://mashe.hawksey.info/2020/04/a-bulk-email-mail-merge-with-gmail-and-google-sheets-solution-evolution-using-v8/#comment-187490
-  // @see https://developers.google.com/apps-script/reference/spreadsheet/range#getdisplayvalues
   const data = dataRange.getDisplayValues();
-
-  // Assumes row 1 contains our column headings
   const heads = data.shift(); 
   
   // Gets the index of the column named 'Email Status' (Assumes header names are unique)
@@ -254,7 +248,7 @@ function sendEmails(subjectLine, sheet=SpreadsheetApp.getActiveSheet()) {
         //   };
         case 'test':
           return {
-            recipients: 'alvaro.gomez@nisd.net, john.decker@nisd.net',
+            recipients: 'alvaro.gomez@nisd.net', //, john.decker@nisd.net, sheila.yeager@nisd.net',
             driveLink: '1gBcGRl700LGfhMPrHx32dZ2j3MwPlqYS'
           };
         default:

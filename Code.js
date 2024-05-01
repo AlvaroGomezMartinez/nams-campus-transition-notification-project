@@ -248,7 +248,7 @@ function sendEmails(subjectLine = "AEP Placement Transition Plan", sheet=Spreads
         //   };
         case 'test':
           return {
-            recipients: 'alvaro.gomez@nisd.net', //, john.decker@nisd.net, sheila.yeager@nisd.net',
+            recipients: 'alvaro.gomez@nisd.net, john.decker@nisd.net', // sheila.yeager@nisd.net',
             driveLink: '1gBcGRl700LGfhMPrHx32dZ2j3MwPlqYS'
           };
         default:
